@@ -3,15 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Redirecting...</title>
+    <title>xtouch cloud live</title>
     <script>
-      async function redirectToNgrokUrl() {
+      async function loadNgrokUrlInIframe() {
         // Get the 'id' parameter from the query string
         const params = new URLSearchParams(window.location.search);
         const id = params.get("id");
+        const message = document.getElementById("message");
 
         if (!id) {
-          console.error('No "id" parameter found in the query string.');
+          message.textContent = `No "id" parameter found in the query string.`;
           return;
         }
 
@@ -32,31 +33,60 @@
             throw new Error("ngrokUrl not found in the response.");
           }
 
-          // Redirect to the ngrokUrl
-          window.location.href = ngrokUrl;
+          // Set the iframe's src to the ngrokUrl
+          const iframe = document.getElementById("ngrokIframe");
+          iframe.src = ngrokUrl;
+
+          // Display a message to the user
+          message.textContent =
+            "Page loaded successfully. Bookmark this page for later use.";
+
+          setTimeout(() => {
+            message.style.display = "none";
+          }, 3000); // Hide the message after 5 seconds
         } catch (error) {
           console.error("Error:", error.message);
         }
       }
 
       // Call the function on page load
-      window.onload = redirectToNgrokUrl;
+      window.onload = loadNgrokUrlInIframe;
     </script>
     <style>
       body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin-top: 50px;
-        background-color: #222;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
         color: #23a543;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+
+      #message {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #23a543;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 14px;
+        z-index: 10;
       }
     </style>
   </head>
   <body>
-    <h1>Redirecting...</h1>
-    <p>
-      If you are not redirected automatically, please check the console for
-      errors.
-    </p>
+    <div id="message">Loading, please wait...</div>
+    <iframe id="ngrokIframe" title="ngrok content"></iframe>
   </body>
 </html>
