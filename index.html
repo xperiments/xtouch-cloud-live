@@ -35,7 +35,7 @@
 
           // Set the iframe's src to the ngrokUrl
           const iframe = document.getElementById("ngrokIframe");
-          iframe.src = ngrokUrl;
+          iframe.src = ngrokUrl + "/cameras?autoReload=true";
 
           // Display a message to the user
           message.textContent =
