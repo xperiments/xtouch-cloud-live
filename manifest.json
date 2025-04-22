@@ -1,0 +1,15 @@
+{
+  "name": "XTouch Cloud Live",
+  "short_name": "xtouch live",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#000000",
+  "theme_color": "#23a543",
+  "icons": [
+    {
+      "src": "img/xcloud.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
